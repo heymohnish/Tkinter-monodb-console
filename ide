@@ -1,0 +1,68 @@
+from tkinter import *
+import pymongo
+from pymongo import collection
+window=Tk()
+window.minsize(1366,768)
+window.maxsize(1366,768)
+window.title("Bank Detail")
+name=StringVar()
+lname=StringVar()
+phone=StringVar()
+passwd=StringVar()
+DOB=StringVar()
+cur=StringVar()
+per=StringVar()
+def act():
+    client=pymongo.MongoClient("mongodb://localhost:27017")
+    db=client["Eunimart"]
+    collection=db["Bank Detail"]
+    dic={
+        "name": name.get(),
+        "lname":lname.get(),
+        "phone": phone.get(),
+        "passwd": passwd.get(),
+        "DOB": DOB.get(),
+        "cur": cur.get(),
+        "per": per.get()
+    }
+    collection.insert_one(dic)
+#First Name
+l=Label(window,text="First Name")
+l.grid(row=1,column=1,sticky=W)
+e=Entry(window,text=name)
+e.grid(row=1,column=2)
+#last name
+l1=Label(window,text="Last Name")
+l1.grid(row=2,column=1,sticky=W)
+e1=Entry(window,text=lname)
+e1.grid(row=2,column=2)
+#phone
+l3=Label(window,text="Phone")
+l3.grid(row=3,column=1,sticky=W)
+e3=Entry(window,text=phone)
+e3.grid(row=3,column=2)
+
+#pass
+l2=Label(window,text="OTP")
+l2.grid(row=4,column=1,sticky=W)
+e2=Entry(window,show="*",text=passwd)
+e2.grid(row=4,column=2)
+#DOB
+l4=Label(window,text="DOB")
+l4.grid(row=5,column=1,sticky=W)
+e4=Entry(window,text=DOB)
+e4.grid(row=5,column=2)
+#cur
+l5=Label(window,text="Current address")
+l5.grid(row=6,column=1,sticky=W)
+e5=Entry(window,text=cur)
+e5.grid(row=6,column=2)
+#per
+l6=Label(window,text="Permenent address")
+l6.grid(row=7,column=1,sticky=W)
+e6=Entry(window,text=per)
+e6.grid(row=7,column=2)
+
+bt=Button(window,text="Login",command=act)
+bt.grid(row=8,column=3)
+window.mainloop()
